@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# template
 
-## Getting Started
+reference
 
-First, run the development server:
+- [Nextjs Page Transition With Framer-Motion - Joseph42A](https://dev.to/joseph42a/nextjs-page-transition-with-framer-motion-33dg)
+- [template - Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/template)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### why we can't just use layout component to wrap our pages with the transition component:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- 僅會於初次渲染時有轉場效果，接下來進行頁面跳轉時、不會再重新渲染 layout 元件內、也不會有轉場效果
+- you can only see the animation for the first render (initial load)
+- if you navigate to other pages, Nextjs will not rerender those pages from the layout, so that the Transition will not render for that page
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### templates:
 
-## Learn More
+- 於此模板元件內的路由跳轉時，會掛載新的元件實例、重新建立DOM 元素、client 元件的狀態不被保留，並且 effect 會重新同步
+- When a user navigates between routes that share a template, a new instance of the component is mounted, DOM elements are recreated, state is not preserved in Client Components, and effects are re-synchronized.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### problem:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- This method doesn't cover the exit animations.
